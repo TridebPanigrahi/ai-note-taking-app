@@ -10,7 +10,10 @@ export default function AIButton({ type, content, onResult }: any) {
   };
 
   return (
-    <button onClick={handleClick} className="btn">
+    <button
+      onClick={handleClick}
+      className="px-3 py-1 bg-blue-500 text-white rounded"
+    >
       AI {type}
     </button>
   );
