@@ -1,9 +1,22 @@
-import { auth } from "@clerk/nextjs/server";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-export const getUser = async () => {
-  const { userId } = await auth();
+const JWT_SECRET = process.env.JWT_SECRET!;
 
-  if (!userId) throw new Error("Unauthorized");
+export async function hashPassword(password: string) {
+  return bcrypt.hash(password, 10);
+}
 
-  return userId;
-};
+export async function comparePassword(password: string, hashed: string) {
+  return bcrypt.compare(password, hashed);
+}
+
+export function generateToken(user: any) {
+  return jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
+    expiresIn: "7d",
+  });
+}
+
+export function verifyToken(token: string) {
+  return jwt.verify(token, JWT_SECRET);
+}

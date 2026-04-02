@@ -1,14 +1,8 @@
-import Link from "next/link";
-
 export default function NoteCard({ note }: any) {
   return (
-    <Link href={`/dashboard/notes/${note.id}`}>
-      <div className="p-4 border rounded-xl hover:shadow-lg cursor-pointer">
-        <h2 className="font-bold text-lg">{note.title}</h2>
-        <p className="text-sm text-gray-500 line-clamp-2">
-          {note.content}
-        </p>
-      </div>
-    </Link>
+    <div className="p-4 border rounded-xl">
+      <h2 className="font-bold">{note.title}</h2>
+      <p>{note.content.slice(0, 100)}</p>
+    </div>
   );
 }
